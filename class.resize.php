@@ -12,7 +12,7 @@ La copie est cree dans un sous-dossier nomme mini/xxx (ou xxx est la taille dema
 Utilisation :
 $r=new resize();
 $r->folder= "/folder/images";
-$r->file="photo.jpg";
+$r->filename="photo.jpg";
 $r->width=500;		// ou largeur : $->height=500;
 $r->resizePicture();
 
@@ -28,7 +28,7 @@ foreach(glob("{*.jpg,*.png,*.jpeg}",GLOB_BRACE) as $file){
 	// Copie 35px de haut pour vignette dans tableaux
 	$r=new resize();
 	$r->folder=$folder;
-	$r->file=$file;
+	$r->filename=$file;
 	$r->height=35;
 	$r->resizePicture();
 
@@ -45,16 +45,18 @@ foreach(glob("{*.jpg,*.png,*.jpeg}",GLOB_BRACE) as $file){
 
 class resize{
 
-	public $file=null;
+	public $filename=null;
 	public $folder=null;
 	public $height=null;
 	public $width=null;
 
 
 	public function resizePicture(){
+		$currentFile=$this->folder."/".$this->filename;
+		
 		$f=new finfo(FILEINFO_MIME);
 
-		switch($f->file($this->file)){
+		switch($f->file($currentFile)){
 			case "image/jpeg" : $this->resizeJPG();	break;
 			case "image/jpg" : $this->resizeJPG();	break;
 			case "image/png" : $this->resizePNG();	break;
@@ -64,7 +66,7 @@ class resize{
 	}
 
 	public function resizeJPG(){
-		$file=$this->file;
+		$file=$this->filename;
 		$folder=$this->folder;
 		$newHeight=$this->height;
 		$newWidth=$this->width;
@@ -109,7 +111,7 @@ class resize{
 
 
 	public function resizePNG(){
-		$file=$this->file;
+		$file=$this->filename;
 		$folder=$this->folder;
 		$newHeight=$this->height;
 		$newWidth=$this->width;
