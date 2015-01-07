@@ -6,7 +6,7 @@ Jerome Combes (jeromecombes@yahoo.fr)
 
 Classe permettant de redimensionner des images jpg et png.
 Cree une copie de l'image donnees aux dimensions souhaitees en gardant les proportions (on donne la hauteur ou la largeur souhaitee).
-La copie est cree dans un sous-dossier nomme mini/xxx (ou xxx est la taille demandee). Si le dossier n'existe pas, il sera cree
+La copie est cree dans un sous-dossier nomme thumbs/xxx (ou xxx est la taille demandee). Si le dossier n'existe pas, il sera cree
 (donner les droits a Apache).
 
 Utilisation :
@@ -16,7 +16,7 @@ $r->filename="photo.jpg";
 $r->width=500;		// ou largeur : $->height=500;
 $r->resizePicture();
 
-Resultat : fichier /folder/images/mini/500/photo.jpg = copie de 500px de large
+Resultat : fichier /folder/images/thumbs/500/photo.jpg = copie de 500px de large
 
 
 Example avec boucle :
@@ -73,12 +73,12 @@ class resize{
 
 		$newSize=$newHeight?$newHeight:$newWidth;
 
-		if(!is_dir("$folder/mini/$newSize")){
-			mkdir("$folder/mini/$newSize",0777,true);
+		if(!is_dir("$folder/thumbs/$newSize")){
+			mkdir("$folder/thumbs/$newSize",0777,true);
 		}
 
 		$currentFile="$folder/$file";
-		$newFile="$folder/mini/$newSize/$file";
+		$newFile="$folder/thumbs/$newSize/$file";
 
 		if(!file_exists($newFile)){
 			$size=getimagesize($currentFile);
@@ -118,12 +118,12 @@ class resize{
 
 		$newSize=$newHeight?$newHeight:$newWidth;
 
-		if(!is_dir("$folder/mini/$newSize")){
-			mkdir("$folder/mini/$newSize",0777,true);
+		if(!is_dir("$folder/thumbs/$newSize")){
+			mkdir("$folder/thumbs/$newSize",0777,true);
 		}
 
 		$currentFile="$folder/$file";
-		$newFile="$folder/mini/$newSize/$file";
+		$newFile="$folder/thumbs/$newSize/$file";
 
 		if(!file_exists($newFile)){
 			$size=getimagesize($currentFile);
